@@ -1,75 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import ReactMarkdown from 'react-markdown';
-import { Container, Col, Row } from 'react-bootstrap';
-import PropTypes from 'prop-types';
-import Fade from 'react-reveal';
-import Header from './Header';
-import endpoints from '../constants/endpoints';
-import FallbackSpinner from './FallbackSpinner';
+import React from "react";
+import "./About.css";
 
-const styles = {
-  introTextContainer: {
-    margin: 10,
-    flexDirection: 'column',
-    whiteSpace: 'pre-wrap',
-    textAlign: 'left',
-    fontSize: '1.2em',
-    fontWeight: 500,
-  },
-  introImageContainer: {
-    margin: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    display: 'flex',
-  },
-};
-
-function About(props) {
-  const { header } = props;
-  const [data, setData] = useState(null);
-
-  const parseIntro = (text) => (
-    <ReactMarkdown
-      children={text}
-    />
-  );
-
-  useEffect(() => {
-    fetch(endpoints.about, {
-      method: 'GET',
-    })
-      .then((res) => res.json())
-      .then((res) => setData(res))
-      .catch((err) => err);
-  }, []);
-
+function About() {
   return (
-    <>
-      <Header title={header} />
-      <div className="section-content-container">
-        <Container>
-          {data
-            ? (
-              <Fade>
-                <Row>
-                  <Col style={styles.introTextContainer}>
-                    {parseIntro(data.about)}
-                  </Col>
-                  <Col style={styles.introImageContainer}>
-                    <img src={data?.imageSource} alt="profile" />
-                  </Col>
-                </Row>
-              </Fade>
-            )
-            : <FallbackSpinner />}
-        </Container>
-      </div>
-    </>
+    <section id="about">
+      <img
+        src="/images/profile.jpg"
+        alt="Sajan Vaidhyanathan"
+        className="profile-pic"
+      />
+      <h1>Sajan Vaidhyanathan</h1>
+      <h2>Marketing & Revenue Operations Leader</h2>
+      <p>
+        Scaling Revenue Operations & Marketing Operations 🚀 | Driving Growth Through Strategic Initiatives | Chennai, India
+      </p>
+      <p>
+        Passionate about digital marketing, demand generation, and building high-performing teams. Experienced in leveraging data and technology to drive business growth.
+      </p>
+    </section>
   );
 }
-
-About.propTypes = {
-  header: PropTypes.string.isRequired,
-};
 
 export default About;
